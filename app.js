@@ -4,10 +4,12 @@ var expressLayouts = require('express-ejs-layouts');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var methodOverride = require('method-override');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var postsRouter = require('./routes/posts');
+var articlesRouter = require('./routes/articles');
 
 var app = express();
 
@@ -20,6 +22,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/lib/bootstrap',express.static(path.join(__dirname, 'node_modules/bootstrap/dist')));
 app.use('/lib/jquery',express.static(path.join(__dirname, 'node_modules/jquery/dist')));
@@ -27,6 +30,7 @@ app.use('/lib/jquery',express.static(path.join(__dirname, 'node_modules/jquery/d
 app.use('/posts', postsRouter);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/articles', articlesRouter);
 
 
 
@@ -41,7 +45,7 @@ app.use(function(err, req, res, next) {
   res.locals.title = "Error";
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
+  
   // render the error page
   res.status(err.status || 500);
   res.render('error');

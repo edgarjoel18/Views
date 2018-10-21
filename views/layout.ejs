@@ -2,30 +2,40 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/lib/bootstrap/css//bootstrap.css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+</style>
+
+     <link rel='stylesheet' href='/lib/bootstrap/css//bootstrap.css' />
     <link rel ='stylesheet' href='/stylesheets/style.css'/>
     <script src ='/lib/jquery/jquery.js'> </script>
     <script src ='/lib/bootstrap/js/bootstrap.bundle.js'> </script>
-
+    <script src = '/javascripts/navbar.js'> </script>
   </head>
 <body>
-   
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a class = "text-white h4"  href="/new-page"> San Franciso News <span class="sr-only">(current)</span></a>
+        <a class ="text-white h4"> Tech News </a>
+        <a class ="text-white h4"> Your Tech </a>
+        <a class ="text-white h4"> Your View</a>
+  </div>
+   <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
     <div class="pos-f-t">
+
       <div class="collapse" id="navbarToggleExternalContent">
-        <div class="bg-dark p-4">
-          <a class = "text-white h4"  href="/new-page"> San Franciso News <span class="sr-only">(current)</span></a>
-          <!--<h5 class="text-white h4">San Francisco News </h5> -->
-          <h5 class ="text-white h4"> Tech News </h5>
-          <h5 class ="text-white h4"> Learning Tech </h5>
-          <h5 class ="text-white h4"> Your View</h5>
-          <!--<span class="text-muted">Toggleable via the navbar brand.</span> -->
-        </div>
+        
+         
+          <span class="text-muted">Toggleable via the navbar brand.</span> 
+         </div>  
       </div>
-      <nav class="navbar navbar-dark bg-dark">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      </nav>
+      
+      
+
+
+
+     
     </div>
 
 

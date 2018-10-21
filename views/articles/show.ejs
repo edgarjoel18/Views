@@ -1,0 +1,14 @@
+<h1> <%= article.title %></h1>
+<h1> <%= article.pictureUrl %> </h1>
+<p>  <%= article.publishedAt %> </p>
+<p>  <%= article.body %></p>
+<p>  <%= article.sourceUrl %></p>
+<p>  <a href = '/articles/<%= article.id %>/edit ' class ='btn btn-primary'> Edit </a>
+    <a href="/articles">&laquo; back to list</a>
+    <form method = 'post' action= '/articles/<%= article.id %>?_method=DELETE'> 
+        <p>  <button class = 'btn btn-danger'>Delete </button>  </p>
+    
+    
+    </form>
+
+</p>

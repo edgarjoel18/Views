@@ -1,0 +1,9 @@
+<h1>Articles list</h1>
+<p>
+    <a class = "btn btn-primary" href="/articles/new">Create a new Article</a>
+</p>
+<ul>    
+    <% for(let article of articles){ %>    
+        <li><a href="/articles/<%= article.id %>"><%= article.title  %></a> </li>
+    <% } %>    
+</ul>

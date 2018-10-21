@@ -19,23 +19,12 @@ router.post('/', function(req, res, next){
     });
 });
 
-
-
-
-
 // create a new post
 router.get('/new', function(req, res, next){
  res.render('posts/new',{ title: 'New Posts' });
 });
 
-
-
-
-
-
-
-
- //Get another posts
+//Get another posts
 router.get('/:id', function(req, res, next){
     models.Post.findById(req.params.id).then(function(post){
         res.render('posts/show', {
