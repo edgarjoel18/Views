@@ -1,0 +1,24 @@
+.views-card {
+  background: black;
+  border: 1px dotted black;
+  max-width: 250px;
+  max-height: 250px;
+}
+
+.views-card__image-container {
+  overflow: hidden;
+  max-height: 175px;
+}
+
+.views-card__image {
+  width: 100%;
+}
+
+.views-card__body {
+  height: 75px;
+}
+.views-card__text {
+  color: #FFF;
+  font-size: 1.5rem;
+  padding: 14px;
+}
