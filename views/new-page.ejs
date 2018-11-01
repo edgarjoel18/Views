@@ -57,14 +57,10 @@
 
 
 </div>
-<div class="card" style="width: 6">
-    <img class="card-img-top" src=".../100px180/" alt="Card image cap">
-    <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-            content.</p>
-
-    </div>
-
-
-</div>
+<%- include('components/views-card', {
+  text: 'Card title',
+  image: {
+    src: 'https://picsum.photos/200/300/?random',
+    alt: 'Card image cap'
+  }
+}); %>
