@@ -4,6 +4,6 @@ import React from 'react';
 
 export default class NavToggle extends React.Component {
   render() {
-    return <span className="nav-toggle">&#9776;</span>
+    return <button className="nav-toggle">&#9776;</button>
   }
 }
