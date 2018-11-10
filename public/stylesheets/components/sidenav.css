@@ -1,0 +1,25 @@
+.sidenav {
+  position: fixed;
+  height: 100%;
+  z-index: 1;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav--open {
+  width: 250px;
+}
+
+.sidenav--closed {
+  width: 0px;
+}
+
+.sidenav__close-button {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
