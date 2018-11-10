@@ -3,9 +3,18 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./bin/www",
+    "webpack": "./node_modules/.bin/webpack -w"
   },
   "dependencies": {
+    "@babel/preset-env": "^7.1.5",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.0.0",
+    "@babel/runtime": "^7.1.5",
+    "babel-loader": "^8.0.4",
+    "babel-plugin-root-import": "^6.1.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-react-optimize": "^1.0.1",
     "bootstrap": "^4.1.3",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
@@ -18,7 +27,15 @@
     "morgan": "~1.9.0",
     "nodemon": "^1.18.4",
     "pg": "^7.4.3",
+    "react": "^16.6.1",
+    "react-dom": "^16.6.1",
     "sequelize": "^4.38.1",
     "sequelize-cli": "^4.1.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.5",
+    "@babel/preset-es2015": "^7.0.0-beta.53",
+    "webpack": "^4.25.1",
+    "webpack-cli": "^3.1.2"
   }
 }
