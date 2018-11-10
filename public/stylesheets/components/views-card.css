@@ -2,12 +2,14 @@
   background: black;
   border: 1px dotted black;
   max-width: 250px;
-  max-height: 250px;
+  max-height: 150px;
+  margin-bottom: 0.7em;
+
 }
 
 .views-card__image-container {
   overflow: hidden;
-  max-height: 175px;
+  max-height: 150px;
 }
 
 .views-card__image {

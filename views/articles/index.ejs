@@ -2,8 +2,23 @@
 <p>
     <a class = "btn btn-primary" href="/articles/new">Create a new Article</a>
 </p>
-<ul>    
-    <% for(let article of articles){ %>    
-        <li><a href="/articles/<%= article.id %>"><%= article.title  %></a> </li>
+<div class="container">
+    <div class="row">
+    
+    <% for(let article of articles){ %> 
+        <div class="col-6">
+            <a href="/articles/<%= article.id %>" >  
+                <%- include('../components/views-card', {
+                    text: article.title,
+                    image: {
+                        src: 'https://picsum.photos/200/300/?random',
+                        alt: 'Card image cap'
+                    }
+                    }); %>
+            </a>
+        </div>
+           
+        
     <% } %>    
-</ul>
+    </div>
+</div>
