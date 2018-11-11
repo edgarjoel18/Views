@@ -10,6 +10,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var postsRouter = require('./routes/posts');
 var articlesRouter = require('./routes/articles');
+var regristrationsRouter = require('./routes/regristrations');
 
 var app = express();
 
@@ -31,6 +32,7 @@ app.use('/posts', postsRouter);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/articles', articlesRouter);
+app.use('/register', regristrationsRouter);
 
 
 
