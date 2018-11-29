@@ -14,6 +14,7 @@
     <script src ='/lib/bootstrap/js/bootstrap.bundle.js'> </script>
     <script src = '/javascripts/navbar.js'> </script>
   </head>
+
 <body class = "background-color">
      
     <div id="mySidenav" class="sidenav">
@@ -32,6 +33,26 @@
           <span class="text-muted">Toggleable via the navbar brand.</span>
          </div>
       </div>
+      <% if(current_user){ %>
+        <li class = 'nav-item'>
+          Hello, <%= current_user.login %>
+        </li>
+        <li class = 'nav-item'>
+          <a class ='nav-link' href = '/logout'> Log out</a>
+
+        </li>
+
+      <% }else { %>
+        <li class = 'nav-item'>
+        <a class ='nav-link' href = '/login'> Log in </a>
+
+      </li>
+
+        <li class ='nav-item'>
+          <a class = 'nav-link' href = '/register'> Register</a>
+
+        </li>
+     <% } %>
 
 
 
@@ -39,7 +60,15 @@
 
 
     </div>
+    <% if(flash.info){ %>
+    <div class = "alert alert-succes"><%= flash.info.join(" "); %> </div>
 
+
+    <% } %>
+    <% if(flash.error){ %>
+      <div class = "alert alert-danger"><%= flash.error.join(' ');      %></div>
+
+    <% } %>
 
     <%- body %>
   </body>
