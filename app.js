@@ -7,11 +7,12 @@ var logger = require('morgan');
 var methodOverride = require('method-override');
 
 var indexRouter = require('./routes/index');
+var adminRouter = require('./routes/admin');
 var usersRouter = require('./routes/users');
 var postsRouter = require('./routes/posts');
 var articlesRouter = require('./routes/articles');
 var regristrationsRouter = require('./routes/regristrations');
-var session = require('express-session');
+var session = require('cookie-session');
 var flash = require('connect-flash');
 var passport = require('passport');
 var sessionsRouter= require('./routes/session');
@@ -28,7 +29,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({secret: 'changeme'}));
+app.use(session({name: 'session', secret: 'changeme'}));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -59,20 +60,21 @@ function requireAdmin(req,res,next){
 }
 
 
-app.use('/posts', postsRouter);
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/admin', requireAdmin);
+app.use('/admin', adminRouter);
 app.use('/articles', requireAdmin);
 app.use('/articles', articlesRouter);
+app.use('/posts', postsRouter);
 app.use('/register', regristrationsRouter);
+app.use('/users', usersRouter);
+
 app.use('/login',sessionsRouter);
 app.use('/logout', function(req,res,next){
   req.logout();
   req.flash('info', 'You have been logged out');
   res.redirect('/');
 });
-
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -85,7 +87,7 @@ app.use(function(err, req, res, next) {
   res.locals.title = "Error";
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-  
+
   // render the error page
   res.status(err.status || 500);
   res.render('error');
