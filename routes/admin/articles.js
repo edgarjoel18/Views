@@ -5,6 +5,7 @@ var moment = require('moment');
 
 router.get('/', function(req, res, next) {
   models.Article.all({
+    include: ['user'],
     order: [['createdAt', 'DESC']]
   }).then(function(articles) {
     res.render('admin/articles/index', {
@@ -23,7 +24,8 @@ router.post('/', function(req, res, next) {
     body: req.body.body,
     sourceUrl: req.body.sourceUrl,
     pictureUrl: req.body.pictureUrl,
-    publishedAt: req.body.publishedAt == '' ? null : req.body.publishedAt
+    publishedAt: req.body.publishedAt == '' ? null : req.body.publishedAt,
+    userId: req.user.id
   }).then(function(article) {
     req.flash('info', 'Article created!');
     res.redirect(`/admin/articles/${article.id}/edit`);
