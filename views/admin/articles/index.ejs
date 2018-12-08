@@ -2,8 +2,7 @@
   <h1 class="h2">Articles</h1>
   <div class="btn-toolbar mb-2 mb-md-0">
     <div class="btn-group">
-      <button class="btn btn-sm btn-outline-secondary">Share</button>
-      <button class="btn btn-sm btn-outline-secondary">Export</button>
+      <a href="/admin/articles/new" class="btn btn-sm btn-outline-secondary">New</a>
     </div>
   </div>
 </div>
@@ -22,11 +21,11 @@
     <tbody>
       <% for (let article of articles) { %>
         <tr>
-          <td><%= article.id %></td>
-          <td><%= article.title %></td>
+          <td><a href="/admin/articles/<%= article.id %>/edit"><%= article.id %></a></td>
+          <td><a href="/admin/articles/<%= article.id %>/edit"><%= article.title %></a></td>
           <td><%= moment(article.createdAt).format(dateFormat) %></td>
           <td><%= moment(article.updatedAt).format(dateFormat) %></td>
-          <td><%= moment(article.publishedAt).format(dateFormat) %></td>
+          <td><%= article.publisedAt ? moment(article.publishedAt).format(dateFormat) : '' %></td>
         </tr>
       <% } %>
     </tbody>

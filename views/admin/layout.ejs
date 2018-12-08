@@ -39,6 +39,12 @@
         </nav>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+          <% if (flash.info){ %>
+          <div class="alert alert-success mt-3"><%= flash.info.join(" ") %></div>
+          <% } %>
+          <% if (flash.error){ %>
+          <div class="alert alert-danger mt-3"><%= flash.error.join(' ') %></div>
+          <% } %>
           <%- body %>
         </main>
       </div>
