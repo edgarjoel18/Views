@@ -4,6 +4,9 @@
   padding: 15px;
 
 }
+.title1{
+  position: relative; 
+}
 .sidenav {
   height: 100%;
   width: 0;
