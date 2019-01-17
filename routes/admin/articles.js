@@ -5,7 +5,7 @@ var moment = require('moment');
 
 router.get('/', function(req, res, next) {
   models.Article.all({
-    include: ['user'],
+    include: ['category', 'user'],
     order: [['createdAt', 'DESC']]
   }).then(function(articles) {
     res.render('admin/articles/index', {
@@ -25,7 +25,8 @@ router.post('/', function(req, res, next) {
     sourceUrl: req.body.sourceUrl,
     pictureUrl: req.body.pictureUrl,
     publishedAt: req.body.publishedAt == '' ? null : req.body.publishedAt,
-    userId: req.user.id
+    categoryId: req.body.categoryId,
+    userId: req.user.id,
   }).then(function(article) {
     req.flash('info', 'Article created!');
     res.redirect(`/admin/articles/${article.id}/edit`);
@@ -33,21 +34,27 @@ router.post('/', function(req, res, next) {
 });
 
 router.get('/new', function(req, res, next) {
-  res.render('admin/articles/new', {
-    layout: 'admin/layout',
-    title: 'New Article',
-    article: models.Article.build(),
-    moment: moment
+  models.Category.all().then(function(categories) {
+    res.render('admin/articles/new', {
+      layout: 'admin/layout',
+      title: 'New Article',
+      article: models.Article.build(),
+      categories: categories,
+      moment: moment
+    });
   });
 });
 
 router.get('/:id/edit', function(req, res, next){
-  models.Article.findById(req.params.id).then(function(article){
-    res.render('admin/articles/edit', {
-      layout: 'admin/layout',
-      title: 'Edit Article',
-      article: article,
-      moment: moment
+  models.Category.all().then(function(categories) {
+    models.Article.findById(req.params.id).then(function(article){
+      res.render('admin/articles/edit', {
+        layout: 'admin/layout',
+        title: 'Edit Article',
+        article: article,
+        categories: categories,
+        moment: moment
+      });
     });
   });
 });
@@ -59,7 +66,8 @@ router.patch('/:id', function(req, res, next){
       body: req.body.body,
       sourceUrl: req.body.sourceUrl,
       pictureUrl: req.body.pictureUrl,
-      publishedAt: req.body.publishedAt == '' ? null : req.body.publishedAt
+      publishedAt: req.body.publishedAt == '' ? null : req.body.publishedAt,
+      categoryId: req.body.categoryId,
     }) .then(function(){
       req.flash('info', 'Article saved!');
       res.redirect(`/admin/articles/${article.id}/edit`);
