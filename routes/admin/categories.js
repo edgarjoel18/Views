@@ -4,7 +4,7 @@ var models = require('../../models');
 var moment = require('moment');
 
 router.get('/', function(req, res, next) {
-  models.Category.all({
+  models.Category.all({ // call to
     order: ['name']
   }).then(function(categories) {
     res.render('admin/categories/index', {

@@ -1,12 +1,12 @@
+
 <!DOCTYPE html>
 <html>
   <head>
     <title><%= title %> </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-
   </style>
-    <link rel ='stylesheet' href='/stylesheets/components/new-page.css'/> 
+    <link rel ='stylesheet' href='/stylesheets/components/new-page.css'/>
     <link rel='stylesheet' href='/lib/bootstrap/css//bootstrap.css' />
     <link rel ='stylesheet' href='/stylesheets/style.css'/>
     <link rel ='stylesheet' href='/stylesheets/components/views-card.css'/>
@@ -16,13 +16,14 @@
   </head>
 
 <body class = "background-color">
-     
+
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a class = "text-white h4"  href="/new-page"> View News <span class="sr-only">(current)</span></a>
-        <a class ="text-white h4"> Tech Views </a>
-        <a class ="text-white h4"> Your Tech </a>
-        <a class ="text-white h4"> Your View</a>
+        <% if (locals.categories) { %>
+          <% for (let category of categories) { %>
+          <a href="/articles?categoryId=<%= category.id %>"><%= category.name %></a>
+          <% } %>
+        <% } %>
   </div>
    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
     <div class="pos-f-t">
@@ -39,32 +40,24 @@
         </li>
         <li class = 'nav-item'>
           <a class ='nav-link' href = '/logout'> Log out</a>
-
         </li>
-
       <% }else { %>
         <li class = 'nav-item'>
         <a class ='nav-link' href = '/login'> Log in </a>
-
       </li>
-
         <li class ='nav-item'>
           <a class = 'nav-link' href = '/register'> Register</a>
-
         </li>
      <% } %>
 
       </div>
-    
+
     <h1> <a class ="title1" href="/"> The View</a> </h1>
     <% if(flash.info){ %>
     <div class = "alert alert-succes"><%= flash.info.join(" "); %> </div>
-
-
     <% } %>
     <% if(flash.error){ %>
       <div class = "alert alert-danger"><%= flash.error.join(' ');      %></div>
-
     <% } %>
 
     <%- body %>
