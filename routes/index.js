@@ -9,12 +9,7 @@ router.get('/', function(req, res, next) {
 
 //get's second page
 router.get('/new-page', function(req, res, next) {
-  
-  models.Category.all({ // call to
-    order: ['name']
-
-  }).then(function(categories) {
-    res.render('new-page', { title: 'new page' , categories: categories});
-  });
+  res.render('new-page', { title: 'new page' , categories: categories});
 });
+
 module.exports = router;

@@ -8,6 +8,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var methodOverride = require('method-override');
 
+var models = require('./models');
 var indexRouter = require('./routes/index');
 var adminRouter = require('./routes/admin');
 var usersRouter = require('./routes/users');
@@ -40,11 +41,26 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/lib/bootstrap',express.static(path.join(__dirname, 'node_modules/bootstrap/dist')));
 app.use('/lib/jquery',express.static(path.join(__dirname, 'node_modules/jquery/dist')));
 
-app.use(function(req,res,next){
-    res.locals.flash = req.flash();
-    res.locals.current_user = req.user;
-    next();
+/**
+ * Check for an set any flash messages, current logged in user
+ */
+app.use(function(req, res, next){
+  res.locals.flash = req.flash();
+  res.locals.current_user = req.user;
+  next();
 })
+
+/**
+ * Load all the categories for the menu
+ */
+app.use(function(req, res, next) {
+  models.Category.all({
+    order: ['name']
+  }).then(function(categories) {
+    res.locals.categories = categories;
+    next();
+  });
+});
 
 function requireAdmin(req,res,next){
   if (req.user){
@@ -54,18 +70,15 @@ function requireAdmin(req,res,next){
       req.flash('error', "Not allowed to see this page");
       res.redirect('/');
     }
-  }else{
+  } else{
     req.flash('error', 'You are not logged in as an admin');
     res.redirect('/login');
-    }
-
+  }
 }
-
 
 app.use('/', indexRouter);
 app.use('/admin', requireAdmin);
 app.use('/admin', adminRouter);
-app.use('/articles', requireAdmin);
 app.use('/articles', articlesRouter);
 app.use('/posts', postsRouter);
 app.use('/register', regristrationsRouter);
@@ -87,7 +100,7 @@ app.use(function(req, res, next) {
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.title = "Error";
-  res.locals.categories = [];
+  res.locals.categories = res.locals.categories || [];
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
