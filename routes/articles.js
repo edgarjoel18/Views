@@ -4,8 +4,13 @@ var models = require('../models');
 
 /* GET lists of articles */
 router.get('/', function(req, res, next) {
-    models.Article.all().then(function(posts){
-        res.render('articles/index', { title: 'Articles', articles: posts }); 
+    models.Article.findAll({
+      where: {
+        categoryId: req.query.categoryId
+      }
+    }).then(function(posts){
+        res.render('articles/index', { title: 'Articles', articles: posts });
+
     });
  });
 // post to create a new post
@@ -27,7 +32,7 @@ router.post('/', function(req, res, next){
 router.get('/new', function(req, res, next){
  res.render('articles/new',{ title: 'New Article' });
 });
- 
+
 
 
 //Get another articles
@@ -51,7 +56,7 @@ router.get('/:id/edit', function(req, res, next){
 // Patch the post
 router.patch('/:id', function(req, res, next){
     models.Article.findById(req.params.id).then(function(article){
-        article.update({ 
+        article.update({
             title: req.body.title,
             body: req.body.body
 
@@ -69,7 +74,7 @@ router.delete('/:id', function(req, res, next){
 
 
         });
-       
+
     });
 });
 
