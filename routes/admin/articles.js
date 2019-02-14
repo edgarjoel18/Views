@@ -6,6 +6,7 @@ var uuid = require('uuid/v4');
 var mime = require('mime-types');
 var mkdirp = require('mkdirp');
 var path = require('path');
+var rimraf = require('rimraf');
 
 router.get('/', function(req, res, next) {
   models.Article.all({
@@ -26,10 +27,19 @@ function handlePicture(req, article, callback) {
   if (req.files && req.files.picture) {
     const key = `/articles/pictures/${uuid()}/original.${mime.extension(req.files.picture.mimetype)}`;
     if (process.env.AWS_S3_BUCKET) {
+      if (article) {
+        //// delete existing picture, if any
+      }
       //// store in S3
     } else {
       if (article) {
         //// delete existing picture, if any
+        if (article.pictureUrl && article.pictureUrl != '') {
+          const dest = `${path.resolve(__dirname, '../../public')}${article.pictureUrl}`;
+          rimraf(path.dirname(dest), function(err) {
+            console.log(err);
+          });
+        }
       }
       //// store in local file system for development, in public
       const dest = `${path.resolve(__dirname, '../../public/uploads')}${key}`;
