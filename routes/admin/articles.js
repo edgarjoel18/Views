@@ -2,6 +2,10 @@ var express = require('express');
 var router = express.Router();
 var models = require('../../models');
 var moment = require('moment');
+var uuid = require('uuid/v4');
+var mime = require('mime-types');
+var mkdirp = require('mkdirp');
+var path = require('path');
 
 router.get('/', function(req, res, next) {
   models.Article.all({
@@ -18,18 +22,46 @@ router.get('/', function(req, res, next) {
   });
 });
 
+function handlePicture(req, article, callback) {
+  if (req.files && req.files.picture) {
+    const key = `/articles/pictures/${uuid()}/original.${mime.extension(req.files.picture.mimetype)}`;
+    if (process.env.AWS_S3_BUCKET) {
+      //// store in S3
+    } else {
+      if (article) {
+        //// delete existing picture, if any
+      }
+      //// store in local file system for development, in public
+      const dest = `${path.resolve(__dirname, '../../public/uploads')}${key}`;
+      mkdirp.sync(path.dirname(dest));
+      req.files.picture.mv(dest, function(err) {
+        if (err) {
+          console.log(err);
+          callback();
+        } else {
+          callback(`/uploads${key}`);
+        }
+      });
+    }
+  } else {
+    callback();
+  }
+}
+
 router.post('/', function(req, res, next) {
-  models.Article.create({
-    title: req.body.title,
-    body: req.body.body,
-    sourceUrl: req.body.sourceUrl,
-    pictureUrl: req.body.pictureUrl,
-    publishedAt: req.body.publishedAt == '' ? null : req.body.publishedAt,
-    categoryId: req.body.categoryId,
-    userId: req.user.id,
-  }).then(function(article) {
-    req.flash('info', 'Article created!');
-    res.redirect(`/admin/articles/${article.id}/edit`);
+  handlePicture(req, null, function(pictureUrl) {
+    models.Article.create({
+      title: req.body.title,
+      body: req.body.body,
+      sourceUrl: req.body.sourceUrl,
+      pictureUrl: pictureUrl,
+      publishedAt: req.body.publishedAt == '' ? null : req.body.publishedAt,
+      categoryId: req.body.categoryId,
+      userId: req.user.id,
+    }).then(function(article) {
+      req.flash('info', 'Article created!');
+      res.redirect(`/admin/articles/${article.id}/edit`);
+    });
   });
 });
 
@@ -59,18 +91,20 @@ router.get('/:id/edit', function(req, res, next){
   });
 });
 
-router.patch('/:id', function(req, res, next){
+router.patch('/:id', function(req, res, next) {
   models.Article.findById(req.params.id).then(function(article) {
-    article.update({
-      title: req.body.title,
-      body: req.body.body,
-      sourceUrl: req.body.sourceUrl,
-      pictureUrl: req.body.pictureUrl,
-      publishedAt: req.body.publishedAt == '' ? null : req.body.publishedAt,
-      categoryId: req.body.categoryId,
-    }) .then(function(){
-      req.flash('info', 'Article saved!');
-      res.redirect(`/admin/articles/${article.id}/edit`);
+    handlePicture(req, article, function(pictureUrl) {
+      article.update({
+        title: req.body.title,
+        body: req.body.body,
+        sourceUrl: req.body.sourceUrl,
+        pictureUrl: pictureUrl,
+        publishedAt: req.body.publishedAt == '' ? null : req.body.publishedAt,
+        categoryId: req.body.categoryId,
+      }) .then(function(){
+        req.flash('info', 'Article saved!');
+        res.redirect(`/admin/articles/${article.id}/edit`);
+      });
     });
   });
 });

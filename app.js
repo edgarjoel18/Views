@@ -29,7 +29,9 @@ app.use(expressLayouts);
 
 
 app.use(logger('dev'));
-app.use(fileUpload());
+app.use(fileUpload({
+  useTempFiles: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
