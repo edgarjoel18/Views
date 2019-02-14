@@ -7,6 +7,7 @@ var mime = require('mime-types');
 var mkdirp = require('mkdirp');
 var path = require('path');
 var rimraf = require('rimraf');
+var AWS = require('aws-sdk');
 
 router.get('/', function(req, res, next) {
   models.Article.all({
@@ -25,12 +26,38 @@ router.get('/', function(req, res, next) {
 
 function handlePicture(req, article, callback) {
   if (req.files && req.files.picture) {
-    const key = `/articles/pictures/${uuid()}/original.${mime.extension(req.files.picture.mimetype)}`;
+    const key = `articles/pictures/${uuid()}/original.${mime.extension(req.files.picture.mimetype)}`;
     if (process.env.AWS_S3_BUCKET) {
+      var s3 = new AWS.S3({
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        region: process.env.AWS_S3_BUCKET_REGION
+      });
       if (article) {
         //// delete existing picture, if any
+        s3.deleteObject({
+          Bucket: process.env.AWS_S3_BUCKET,
+          Key: article.pictureUrl.substring(process.env.AWS_S3_BASE_URL.length + 1)
+        }, function(err, data) {
+          if (err) {
+            console.log(err);
+          }
+        });
       }
       //// store in S3
+      s3.putObject({
+        Bucket: process.env.AWS_S3_BUCKET,
+        Key: key,
+        Body: req.files.picture.data,
+        ACL: 'public-read'
+      }, function(err, data) {
+        if (err) {
+          console.log(err);
+          callback();
+        } else {
+          callback(`${process.env.AWS_S3_BASE_URL}/${key}`);
+        }
+      });
     } else {
       if (article) {
         //// delete existing picture, if any
@@ -42,14 +69,14 @@ function handlePicture(req, article, callback) {
         }
       }
       //// store in local file system for development, in public
-      const dest = `${path.resolve(__dirname, '../../public/uploads')}${key}`;
+      const dest = `${path.resolve(__dirname, '../../public/uploads')}/${key}`;
       mkdirp.sync(path.dirname(dest));
       req.files.picture.mv(dest, function(err) {
         if (err) {
           console.log(err);
           callback();
         } else {
-          callback(`/uploads${key}`);
+          callback(`/uploads/${key}`);
         }
       });
     }
