@@ -7,6 +7,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var methodOverride = require('method-override');
+var fileUpload = require('express-fileupload');
 
 var models = require('./models');
 var indexRouter = require('./routes/index');
@@ -29,6 +30,9 @@ app.use(expressLayouts);
 
 
 app.use(logger('dev'));
+app.use(fileUpload({
+  useTempFiles: !process.env.AWS_S3_BUCKET
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

@@ -23,8 +23,11 @@
 </div>
 
 <div class="form-group">
-  <label>Picture URL</label>
-  <input type="text" class="form-control" name="pictureUrl" value="<%= article.pictureUrl %>">
+  <label>Picture</label>
+  <% if (article.pictureUrl && article.pictureUrl != '') { %>
+  <div class="mb-2"><img src="<%= article.pictureUrl %>" class="img-thumbnail" /></div>
+  <% } %>
+  <input type="file" class="form-control" name="picture">
 </div>
 
 <div class="form-group">

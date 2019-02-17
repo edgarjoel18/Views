@@ -2,6 +2,6 @@
   <h1 class="h2">Edit Article</h1>
 </div>
 
-<form method="post" action="/admin/articles/<%= article.id %>?_method=PATCH">
+<form method="post" action="/admin/articles/<%= article.id %>?_method=PATCH" encType="multipart/form-data">
   <% include ./_form %>
 </form>
