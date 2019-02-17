@@ -16,16 +16,13 @@
   </head>
 
 <body class = "background-color">
-
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <% if (locals.categories) { %>
-          <% for (let category of categories) { %>
-          <a href="/articles?categoryId=<%= category.id %>"><%= category.name %></a>
-          <% } %>
-        <% } %>
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <% for (let category of categories) { %>
+    <a href="/articles?categoryId=<%= category.id %>"><%= category.name %></a>
+    <% } %>
   </div>
-   <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+  <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
     <div class="pos-f-t">
 
       <div class="collapse" id="navbarToggleExternalContent">
