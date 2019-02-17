@@ -5,7 +5,7 @@
 
 }
 .title1{
-  position: middle; 
+  position: middle;
 }
 .sidenav {
   height: 100%;
@@ -18,6 +18,15 @@
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px;
+}
+.Name{
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 15px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+
 }
 
 .sidenav a {

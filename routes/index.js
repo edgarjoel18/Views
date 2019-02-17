@@ -4,7 +4,12 @@ var models = require('../models');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'The View' });
+  models.Article.findAll({ // gets random articles to the home page
+
+  }).then(function(articles){
+      res.render('articles/index', { title: 'Articles', articles: articles });
+
+  });
 });
 
 //get's second page
