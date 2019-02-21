@@ -1,15 +1,17 @@
- 
-
-<img class = "image1" src ="https://duranvirginia.files.wordpress.com/2014/02/virginia-duran-blog-10-sites-to-take-the-best-skyline-pictures-in-san-francisco-mandarin-oriental-at-dusk.jpg" alt ="picture of sf">
-
-
- 
- <p> <a href = "new-page"> This is my  </a>     </p> 
-
-
-
-
-
-
-
-
+<div class="container">
+  <div class="row">
+  <% for(let article of articles){ %>
+    <div class="col-6">
+      <a href="/articles/<%= article.id %>">
+        <%- include('./components/views-card', {
+              text: article.title,
+              image: {
+                src: article.pictureUrl,
+                alt: article.title
+              }
+            }); %>
+      </a>
+    </div>
+  <% } %>
+  </div>
+</div>

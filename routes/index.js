@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
   models.Article.findAll({ // gets random articles to the home page
 
   }).then(function(articles){
-      res.render('articles/index', { title: 'Articles', articles: articles });
+      res.render('index', { title: 'Articles', articles: articles });
 
   });
 });

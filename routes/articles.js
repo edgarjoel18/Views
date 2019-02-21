@@ -9,7 +9,11 @@ router.get('/', function(req, res, next) {
         categoryId: req.query.categoryId
       }
     }).then(function(posts){
-        res.render('articles/index', { title: 'Articles', articles: posts });
+        res.render('articles/index', {
+
+          title: 'Articles',
+          categoryId:req.query.categoryId,
+          articles: posts });
 
     });
  });
@@ -35,11 +39,12 @@ router.get('/new', function(req, res, next){
 
 
 
-//Get another articles
+
  router.get('/:id', function(req, res, next){
     models.Article.findById(req.params.id).then(function(article){
         res.render('articles/show', {
             title: 'Show article',
+            categoryId: req.query.categoryId,
             article: article
         });
     });
