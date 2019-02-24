@@ -1,5 +1,8 @@
-<h1> <%= article.title %></h1>
-<h1> <%= article.pictureUrl %> </h1>
+<div>
+  <h1 class = "article-title"> <%= article.title %></h1>
+  <img class ="img-fluid" src= "<%=article.pictureUrl%>" alt="<%= article.title %>">
+</div>
+<hr>
 <p>  <%= article.publishedAt %> </p>
 <p>  <%= article.body %></p>
 <p>  <%= article.sourceUrl %></p>

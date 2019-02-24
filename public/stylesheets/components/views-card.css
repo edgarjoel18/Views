@@ -5,6 +5,7 @@
   max-height: 150px;
   margin-bottom: 0.7em;
 
+
 }
 
 .views-card__image-container {
@@ -14,14 +15,20 @@
 
 .views-card__image {
   width: 100%;
+  opacity: 0.6;
+
 }
 
 .views-card__body {
-  height: 75px;
+  height: 95px;
 }
 .views-card__text {
   color: #FFF;
   font-size: 1.5rem;
   padding: 14px;
+  position: absolute;
+  top:40px;
+  left:40px;
+  right:80px;
+  text-shadow: 3px  white;
 }
-

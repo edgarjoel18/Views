@@ -1,3 +1,14 @@
+.img-fluid{
+  height: 400px;
+  width: 900px;
+  overflow: hidden;
+}
+.article-title{
+  position: relative;
+  bottom:-180px;
+  left:150px;
+  text-shadow: 3px  white;
+}
 .image1{
   height: 40%;
   width: 100%;
