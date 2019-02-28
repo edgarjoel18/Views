@@ -4,9 +4,9 @@
   overflow: hidden;
 }
 .article-title{
-  position: relative;
-  bottom:-180px;
-  left:150px;
+  position: absolute;
+  top:50%;
+  
   text-shadow: 3px  white;
 }
 .image1{

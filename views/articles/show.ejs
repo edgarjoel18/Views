@@ -1,6 +1,7 @@
-<div>
-  <h1 class = "article-title"> <%= article.title %></h1>
+<div style = "position:relative">
+  <h1 class = "article-title" style = "position:absolute; top:50%;"> <%= article.title %></h1>
   <img class ="img-fluid" src= "<%=article.pictureUrl%>" alt="<%= article.title %>">
+
 </div>
 <hr>
 <p>  <%= article.publishedAt %> </p>
@@ -16,8 +17,7 @@
 
     <form method = 'post' action= '/articles/<%= article.id %>?_method=DELETE'>
         <!-- <p>  <button class = 'btn btn-danger'>Delete </button>  </p> -->
-
-
     </form>
+
 
 </p>
