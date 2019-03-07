@@ -1,3 +1,6 @@
+.commentbutton{
+  left: 80px;
+}
 .img-fluid{
   height: 400px;
   width: 900px;
@@ -6,7 +9,7 @@
 .article-title{
   position: absolute;
   top:50%;
-  
+
   text-shadow: 3px  white;
 }
 .image1{

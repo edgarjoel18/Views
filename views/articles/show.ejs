@@ -17,7 +17,15 @@
 
     <form method = 'post' action= '/articles/<%= article.id %>?_method=DELETE'>
         <!-- <p>  <button class = 'btn btn-danger'>Delete </button>  </p> -->
+      <!--  <button type="button" class="btn btn-dark"> Comment</button> -->
     </form>
+  <div>
+    <script src = '/javascripts/commentButton.js'> </script>
+    <button type="button" id = "commentButton" class="btn btn-dark commentbutton" onclick="commentButton()"> Comment</button>
+    <!-- <input value="onclick" type="button"> -->
+
+    <textarea id = "commentBox" style = "display:none;" name="Text" rows="8" cols="80"></textarea>
 
 
+  </div>
 </p>
