@@ -9,8 +9,16 @@
 .article-title{
   position: absolute;
   top:50%;
-
+  text-align:left;
+  font-style: italic;
+  mix-blend-mode: white;
   text-shadow: 3px  white;
+  background-color: darkred;
+  right:70px;
+  left:70px;
+  bottom:20px;
+
+
 }
 .image1{
   height: 40%;
