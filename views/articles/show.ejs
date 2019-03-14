@@ -1,10 +1,10 @@
-<div class="container" onmousedown ="hideView(event)" onmouseup="showView(event)" style="position:relative">
+<div class="container" onmousedown="hideView(event)" ontouchstart="hideView(event)" onmouseup="showView(event)" ontouchend="showView(event)" style="position:relative">
   <h1 class = "article-title" style = "position:absolute; top:50%;"> <%= article.title %></h1>
   <img class ="img-fluid" src="<%=article.pictureUrl%>" alt="<%= article.title %>">
 </div>
 <script src = '/javascripts/articleEvents.js'> </script>
 <hr>
-<p>  <%= article.publishedAt %> </p>
+<!-- <p>  <%= article.publishedAt %> </p> -->
 <p>  <%= article.body %></p>
 <p>  <%= article.sourceUrl %></p>
 <!-- <p>  <a href = '/articles/<%= article.id %>/edit ' class ='btn btn-primary'> Edit </a> -->
