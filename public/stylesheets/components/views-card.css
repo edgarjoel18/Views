@@ -1,16 +1,16 @@
 .views-card {
   background: black;
   border: 1px dotted black;
-  max-width: 250px;
-  max-height: 150px;
-  margin-bottom: 0.7em;
-
+  max-width: 300px;
+  max-height: 280px;
+  margin-bottom: 45px;
+  position: relative;
 
 }
 
 .views-card__image-container {
   overflow: hidden;
-  max-height: 150px;
+  max-height: 280px;
 }
 
 .views-card__image {
@@ -29,4 +29,12 @@
   position: absolute;
   top:30%;
   text-shadow: 3px  white;
+  font-style: italic;
+  mix-blend-mode: white;
+  text-shadow: 3px white;
+  background-color: darkred;
+  right:90px;
+  left:70px;
+  bottom:45px;
+  overflow: hidden;
 }

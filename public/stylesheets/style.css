@@ -27,7 +27,8 @@
 
 }
 .title1{
-  position: middle;
+  position: absolute;
+
 }
 .sidenav {
   height: 100%;
