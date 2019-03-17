@@ -14,12 +14,13 @@ a[data-toggle="popover"]{
   top:50%;
   text-align:left;
   font-style: italic;
+  font-size: 35px;
   mix-blend-mode: white;
   text-shadow: 3px  white;
   background-color: darkred;
   right:70px;
   left:70px;
-  bottom:20px;
+  bottom:10px;
 
 
 }
