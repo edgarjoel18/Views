@@ -16,12 +16,16 @@
 
       <%}%>
 
+
     <form method = 'post' action= '/articles/<%= article.id %>?_method=DELETE'>
     </form>
   <div>
     <script src = '/javascripts/commentButton.js'> </script>
-    <button type="button" id = "commentButton" class="btn btn-dark commentbutton" onclick="commentButton()"> Comment</button>
+    <button type="button" id= "commentButton" class="btn btn-dark commentbutton" onclick="commentButton()"> Comment</button>
     <!-- <input value="onclick" type="button"> -->
+    <% if(categoryId == "4"){%>
+    <button type="button" id= "uploadButton" class="btn btn-dark commentbutton" onclick="commentButton()"> Upload</button>
+      <%} %>
 
     <textarea id = "commentBox" style = "display:none;" name="Text" rows="8" cols="80"></textarea>
 

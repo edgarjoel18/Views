@@ -1,8 +1,10 @@
 a[data-toggle="popover"]{
   text-decoration: underline !important;
 }
+
 .commentbutton{
-  left: 80px;
+  float: right;
+  margin-left: 5px;
 }
 .img-fluid{
   height: 400px;
