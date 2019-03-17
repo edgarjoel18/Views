@@ -1,3 +1,6 @@
+a[data-toggle="popover"]{
+  text-decoration: underline !important;
+}
 .commentbutton{
   left: 80px;
 }

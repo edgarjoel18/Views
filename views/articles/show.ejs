@@ -5,7 +5,8 @@
 <script src = '/javascripts/articleEvents.js'> </script>
 <hr>
 <!-- <p>  <%= article.publishedAt %> </p> -->
-<p>  <%= article.body %></p>
+<p>  <%- article.body %></p>
+<!-- <a data-container="body" data-toggle="popover" data-placement="top" data-content="try"> hello </a> -->
 <p>  <%= article.sourceUrl %></p>
 <!-- <p>  <a href = '/articles/<%= article.id %>/edit ' class ='btn btn-primary'> Edit </a> -->
     <% if(categoryId){%>
