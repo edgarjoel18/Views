@@ -23,7 +23,7 @@ router.get('/', function(req, res, next) {
   });
 });
 
-function uploadMusic(req, article, callback) {
+function uploadMusic(req, audio, callback) {
   if (req.files && req.files.music) {
     const key = `audio/music/${uuid()}/original.${mime.extension(req.files.music.mimetype)}`;
     if (process.env.AWS_S3_BUCKET) {
@@ -32,11 +32,11 @@ function uploadMusic(req, article, callback) {
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
         region: process.env.AWS_S3_BUCKET_REGION
       });
-      if (article && article.pictureUrl && article.pictureUrl != '') {
+      if (audio && audio.audioUrl && audio.audioUrl != '') {
         //// delete existing picture, if any
         s3.deleteObject({
           Bucket: process.env.AWS_S3_BUCKET,
-          Key: article.pictureUrl.substring(process.env.AWS_S3_BASE_URL.length + 1)
+          Key: audio.audioUrl.substring(process.env.AWS_S3_BASE_URL.length + 1)
         }, function(err, data) {
           if (err) {
             console.log(err);
@@ -58,10 +58,10 @@ function uploadMusic(req, article, callback) {
         }
       });
     } else {
-      if (article) {
+      if (audio) {
         //// delete existing picture, if any
-        if (article.pictureUrl && article.pictureUrl != '') {
-          const dest = `${path.resolve(__dirname, '../../public')}${article.pictureUrl}`;
+        if (audio.audioUrl && audio.audioUrl != '') {
+          const dest = `${path.resolve(__dirname, '../../public')}${audio.audioUrl}`;
           rimraf(path.dirname(dest), function(err) {
             console.log(err);
           });
@@ -70,7 +70,7 @@ function uploadMusic(req, article, callback) {
       //// store in local file system for development, in public
       const dest = `${path.resolve(__dirname, '../../public/uploads')}/${key}`;
       mkdirp.sync(path.dirname(dest));
-      req.files.picture.mv(dest, function(err) {
+      req.files.music.mv(dest, function(err) {
         if (err) {
           console.log(err);
           callback();
@@ -85,13 +85,23 @@ function uploadMusic(req, article, callback) {
 }
 
 router.get('/new', function(req, res, next) {
-  models.Category.all().then(function(categories) {
-    res.render('admin/audioUploads/new', {
-      layout: 'admin/layout',
-      title: 'New Article',
-      article: models.Article.build(),
-      categories: categories,
+    res.render('audio/new', {
+      title: 'New Music Upload',
+      audio: models.Audio.build(),
       moment: moment
+    });
+
+});
+router.post('/', function(req, res, next) {
+  uploadMusic(req, null, function(audioUrl) {
+    models.Audio.create({
+      title: req.body.title,
+      body: req.body.body,
+      audioUrl: audioUrl,
+      userId: req.user.id,
+    }).then(function(audio) {
+      req.flash('info', 'Song Uploaded!');
+      res.redirect(`/audioUploads`);
     });
   });
 });

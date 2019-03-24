@@ -1,0 +1,22 @@
+<div class="form-group">
+  <div class="form-group">
+  <label>Title</label>
+  <input type="text" class="form-control" name="title" value="<%= audio.title %>">
+</div>
+
+<div class="form-group">
+  <label>Body</label>
+  <textarea class="form-control" name="body"><%= audio.body %></textarea>
+</div>
+
+<div class="form-group">
+  <label>Music Upload</label>
+  <% if (audio.audioUrl && audio.audioUrl != '') { %>
+  <!-- <div class="mb-2"><img src="<%= article.pictureUrl %>" class="img-thumbnail" /></div> -->
+  <% } %>
+  <input type="file" class="form-control" name="music">
+</div>
+
+<div class="form-group">
+  <button class="btn btn-primary" type="submit">Submit</button>
+</div>

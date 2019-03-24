@@ -3,23 +3,24 @@
     <tr>
       <th>Id</th>
       <th>Title</th>
-      <th>Category</th>
+      <th>audio Url</th>
       <th>Created At</th>
-      <th>Updated At</th>
-      <th>Published At</th>
-      <th>Written By</th>
     </tr>
   </thead>
   <tbody>
     <% for (let music of audio) { %>
       <tr>
-        <td><a href="/admin/articles/<%= music.id %>/edit"><%= article.id %></a></td>
-        <td><a href="/admin/articles/<%= music.id %>/edit"><%= article.title %></a></td>
-        <!-- <td><%= article.category ? article.category.name : '' %></td> -->
+        <td><%= music.id %></td>
+        <td><%= music.title %></td>
+        <td>
+          <audio controls>
+            <source src="<%= music.audioUrl%>">
+            Your browser does not support the audio element.
+          </audio>
+        </td>
         <td><%= moment(music.createdAt).format(dateFormat) %></td>
-        <!-- <td><%= moment(article.updatedAt).format(dateFormat) %></td> -->
-        <!-- <td><%= article.user ? article.user.login : '' %></td> -->
       </tr>
     <% } %>
   </tbody>
 </table>
+  <a href="/audioUploads/new" class="btn btn-sm btn-outline-secondary">New</a>
