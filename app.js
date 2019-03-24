@@ -15,11 +15,13 @@ var adminRouter = require('./routes/admin');
 var usersRouter = require('./routes/users');
 var postsRouter = require('./routes/posts');
 var articlesRouter = require('./routes/articles');
+var audioRouter = require('./routes/admin/audioUploads');
 var regristrationsRouter = require('./routes/regristrations');
+var sessionsRouter= require('./routes/session');
 var session = require('cookie-session');
 var flash = require('connect-flash');
 var passport = require('passport');
-var sessionsRouter= require('./routes/session');
+
 
 var app = express();
 
@@ -44,6 +46,7 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/lib/bootstrap',express.static(path.join(__dirname, 'node_modules/bootstrap/dist')));
 app.use('/lib/jquery',express.static(path.join(__dirname, 'node_modules/jquery/dist')));
+
 
 /**
  * Check for an set any flash messages, current logged in user
@@ -84,6 +87,7 @@ app.use('/', indexRouter);
 app.use('/admin', requireAdmin);
 app.use('/admin', adminRouter);
 app.use('/articles', articlesRouter);
+app.use('/audioUploads',audioRouter);
 app.use('/posts', postsRouter);
 app.use('/register', regristrationsRouter);
 app.use('/users', usersRouter);

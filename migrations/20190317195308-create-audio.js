@@ -17,8 +17,12 @@ module.exports = {
       body: {
         type: Sequelize.TEXT
       },
-      user_id: {
-        type: Sequelize.INTEGER
+      userId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,
@@ -28,6 +32,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
+    }).then(function() {
+      queryInterface.addIndex('Audios', {
+        fields: ['userId']
+      });
     });
   },
   down: (queryInterface, Sequelize) => {

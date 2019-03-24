@@ -39,7 +39,7 @@ function handlePicture(req, article, callback) {
           Bucket: process.env.AWS_S3_BUCKET,
           Key: article.pictureUrl.substring(process.env.AWS_S3_BASE_URL.length + 1)
         }, function(err, data) {
-          if (err) {
+          if (err){
             console.log(err);
           }
         });

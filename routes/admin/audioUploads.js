@@ -1,6 +1,27 @@
+var models = require('../../models');
+var moment = require('moment');
+var uuid = require('uuid/v4');
+var mime = require('mime-types');
+var mkdirp = require('mkdirp');
+var path = require('path');
+var rimraf = require('rimraf');
 var AWS = require('aws-sdk');
+var express = require('express');
+var router = express.Router();
 
-
+router.get('/', function(req, res, next) {
+  models.Audio.all({
+    include: ['user'],
+    order: [['createdAt', 'DESC']]
+  }).then(function(music) {
+    res.render('audio/index', {
+      title: 'uploads',
+      audio: music,
+      moment: moment,
+      dateFormat: 'YYYY-MM-DD HH:mm'
+    });
+  });
+});
 
 function uploadMusic(req, article, callback) {
   if (req.files && req.files.music) {
@@ -65,7 +86,7 @@ function uploadMusic(req, article, callback) {
 
 router.get('/new', function(req, res, next) {
   models.Category.all().then(function(categories) {
-    res.render('admin/articles/new', {
+    res.render('admin/audioUploads/new', {
       layout: 'admin/layout',
       title: 'New Article',
       article: models.Article.build(),
@@ -90,3 +111,4 @@ router.get('/:id/edit', function(req, res, next){
     });
   });
 });
+module.exports = router;
