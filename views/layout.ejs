@@ -14,21 +14,20 @@
     <script src = '/javascripts/navbar.js'> </script>
   </head>
 <body class = "background-color">
-  <div id="mySidenav" class="sidenav">
+    <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <% for (let category of categories) { %>
     <a href="/articles?categoryId=<%= category.id %>"><%= category.name %></a>
     <% } %>
-      <a href="/audioUploads">Audio Uploads</a>
+      <a href="/audioUploads">Music</a>
     <% if(current_user){ %>
       <div class = "Name">
         Hello, <%= current_user.login %>
       </div>
-
-      <li class = 'nav-item'>
+        <li class = 'nav-item'>
         <a class ='nav-link' href = '/logout'> Log out</a>
       </li>
-    <% }else { %>
+    <% }else{ %>
       <li class = 'nav-item'>
       <a class ='nav-link' href = '/login'> Log in </a>
     </li>
@@ -49,11 +48,13 @@
     <header class="masthead">
     <div class="inner">
       <h3 class="masthead-brand">Views</h3>
-      <!-- <nav class="nav nav-masthead justify-content-center">
-        <% for (let category of categories) { %>
-        <a class="nav-link" href="/articles?categoryId=<%= category.id %>"><%= category.name %></a>
-        <% } %> -->
+      <div class="inner">
+        <nav class="nav nav-masthead justify-content-center">
+        <a class="nav-link" href="/audioUploads">Music</a>
+        <a class="nav-link" href="#">Kicks</a>
       </nav>
+    </div>
+
     </div>
   </header>
   <div>
