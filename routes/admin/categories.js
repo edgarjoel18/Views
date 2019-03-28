@@ -56,4 +56,18 @@ router.patch('/:id', function(req, res, next){
   });
 });
 
+router.delete('/:id', function(req, res, next) {
+  models.Category.findById(req.params.id).then(function(category) {
+    category.destroy().then(function(){
+      req.flash('info', 'Category deleted.');
+      res.redirect('/admin/categories');
+    }).catch(function(err) {
+      if (err.name == 'SequelizeForeignKeyConstraintError') {
+        req.flash('error', 'Category is still being used. Edit articles using this category (switch to another category) before deleting.');
+        res.redirect(`/admin/categories/${req.params.id}/edit`);
+      }
+    });
+  });
+});
+
 module.exports = router;
