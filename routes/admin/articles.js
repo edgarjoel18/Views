@@ -146,4 +146,13 @@ router.patch('/:id', function(req, res, next) {
   });
 });
 
+router.delete('/:id', function(req, res, next){
+    models.Article.findById(req.params.id).then(function(article){
+        article.destroy().then(function(){
+            req.flash('info', 'Article deleted.');
+            res.redirect('/admin/articles');
+        });
+    });
+});
+
 module.exports = router;
