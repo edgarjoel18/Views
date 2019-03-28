@@ -20,12 +20,21 @@ a[data-toggle="popover"]{
   mix-blend-mode: white;
   text-shadow: 3px  white;
   background-color: darkred;
-  right:70px;
+  right:90px;
   left:70px;
   bottom:10px;
 
 
 }
+@media (max-width: 576px) {
+.article-title{
+  font-size: 30px;
+  right:20px;
+  left:20px;
+
+}
+ }
+
 .image1{
   height: 40%;
   width: 100%;
