@@ -35,16 +35,14 @@
   mix-blend-mode: white;
   text-shadow: 3px white;
   background-color: darkred;
-  right:90px;
-  left:70px;
+  right:20px;
+  left:20px;
   bottom:45px;
   overflow: hidden;
 }
-@media (max-width: 576px) {
+/* @media (max-width: 576px) {
 .views-card__text{
   font-size: 1.5rem;
-  right:20px;
-  left:20px;
 
 }
- }
+ } */
